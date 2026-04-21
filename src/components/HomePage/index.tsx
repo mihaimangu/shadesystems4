@@ -1,5 +1,10 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
+import type { Media, Product } from '@/payload-types'
 import './homepage.css'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -9,40 +14,29 @@ const plusJakarta = Plus_Jakarta_Sans({
   display: 'swap',
 })
 
-const products = [
-  {
-    name: 'Pergolas',
-    desc: 'Permanent aluminium structures that define your terrace with elegance and durability.',
-    gradient: 'linear-gradient(135deg, #2c4a6e 0%, #4a7a8a 60%, #7aadcc 100%)',
-  },
-  {
-    name: 'Awnings',
-    desc: 'Retractable fabric solutions for patios, windows and façades — motorised or manual.',
-    gradient: 'linear-gradient(135deg, #3a5a3e 0%, #5a8a62 60%, #8ab890 100%)',
-  },
-  {
-    name: 'Roller Screens',
-    desc: 'Filter sun and wind while keeping your outdoor view completely open.',
-    gradient: 'linear-gradient(135deg, #5a3a2e 0%, #8a6248 60%, #c49a7a 100%)',
-  },
-  {
-    name: 'Zip Blinds',
-    desc: 'Side-guided screens that seal out insects and wind with a clean, frameless look.',
-    gradient: 'linear-gradient(135deg, #2e3a5a 0%, #485a8a 60%, #7a90c4 100%)',
-  },
-  {
-    name: 'Louvre Roofs',
-    desc: 'Adjustable aluminium blades that open and close to control light and rain instantly.',
-    gradient: 'linear-gradient(135deg, #4a3a2e 0%, #7a6248 60%, #b09270 100%)',
-  },
-  {
-    name: 'Glass Rooms',
-    desc: 'Year-round outdoor living spaces — thermally efficient, minimalist, and durable.',
-    gradient: 'linear-gradient(135deg, #2a4a3a 0%, #3a7a5e 60%, #6aaa8e 100%)',
-  },
+const cardGradients = [
+  'linear-gradient(135deg, #2c4a6e 0%, #4a7a8a 60%, #7aadcc 100%)',
+  'linear-gradient(135deg, #3a5a3e 0%, #5a8a62 60%, #8ab890 100%)',
+  'linear-gradient(135deg, #5a3a2e 0%, #8a6248 60%, #c49a7a 100%)',
+  'linear-gradient(135deg, #2e3a5a 0%, #485a8a 60%, #7a90c4 100%)',
+  'linear-gradient(135deg, #4a3a2e 0%, #7a6248 60%, #b09270 100%)',
+  'linear-gradient(135deg, #2a4a3a 0%, #3a7a5e 60%, #6aaa8e 100%)',
 ]
 
-export function HomePage() {
+async function getProducts(): Promise<Product[]> {
+  const payload = await getPayload({ config: configPromise })
+  const result = await payload.find({
+    collection: 'products',
+    limit: 12,
+    sort: 'order',
+    pagination: false,
+  })
+  return result.docs
+}
+
+export async function HomePage() {
+  const products = await getProducts()
+
   return (
     <main className={`homepage ${plusJakarta.variable}`}>
 
@@ -81,25 +75,43 @@ export function HomePage() {
           </div>
 
           <div className="hp-products-grid">
-            {products.map((p) => (
-              <Link
-                key={p.name}
-                href={`/products/${p.name.toLowerCase().replace(' ', '-')}`}
-                className="hp-product-card"
-              >
-                <div className="hp-product-thumb">
-                  <div
-                    className="hp-product-thumb-inner"
-                    style={{ background: p.gradient }}
-                  />
-                </div>
-                <div className="hp-product-body">
-                  <h3 className="hp-product-name">{p.name}</h3>
-                  <p className="hp-product-desc">{p.desc}</p>
-                  <span className="hp-product-more">Learn more</span>
-                </div>
-              </Link>
-            ))}
+            {products.map((product, i) => {
+              const image = product.image && typeof product.image === 'object'
+                ? (product.image as Media)
+                : null
+              const imgUrl = image?.url ? getMediaUrl(image.url, image.updatedAt) : null
+
+              return (
+                <Link
+                  key={product.id}
+                  href={`/products/${product.slug}`}
+                  className="hp-product-card"
+                >
+                  <div className="hp-product-thumb">
+                    {imgUrl ? (
+                      <Image
+                        src={imgUrl}
+                        alt={image?.alt || product.name}
+                        fill
+                        className="hp-product-thumb-inner"
+                        style={{ objectFit: 'cover' }}
+                        sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div
+                        className="hp-product-thumb-inner"
+                        style={{ background: cardGradients[i % cardGradients.length] }}
+                      />
+                    )}
+                  </div>
+                  <div className="hp-product-body">
+                    <h3 className="hp-product-name">{product.name}</h3>
+                    <p className="hp-product-desc">{product.description}</p>
+                    <span className="hp-product-more">Learn more</span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

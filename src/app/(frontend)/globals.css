@@ -292,3 +292,129 @@ html[data-theme='light'] {
 .site-nav-cta:hover {
   background: #cf5516;
 }
+
+/* ── Product Detail Page ── */
+.product-page {
+  min-height: 60vh;
+}
+
+.product-page-hero {
+  position: relative;
+  height: 420px;
+  background: #1a2b3c;
+  overflow: hidden;
+}
+
+.product-page-hero-img {
+  position: absolute;
+  inset: 0;
+}
+
+.product-page-hero-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #2c4a6e 0%, #4a7a8a 60%, #7aadcc 100%);
+}
+
+.product-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(26, 43, 60, 0.75) 0%, rgba(26, 43, 60, 0.3) 100%);
+}
+
+.product-page-hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.product-page-breadcrumb {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+}
+
+.product-page-breadcrumb:hover {
+  color: #ffffff;
+}
+
+.product-page-breadcrumb-sep {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0.3rem;
+}
+
+.product-page-breadcrumb-cur {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.product-page-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.15;
+}
+
+.product-page-sub {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.product-page-body {
+  background: #ffffff;
+  padding: 4rem 2rem;
+}
+
+.product-page-body-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-page-cta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dde2e8;
+  flex-wrap: wrap;
+}
+
+.product-page-btn-primary {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8rem 1.75rem;
+  background: #e8601a;
+  color: #ffffff;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.product-page-btn-primary:hover {
+  background: #cf5516;
+}
+
+.product-page-btn-back {
+  font-size: 0.85rem;
+  color: #1a2b3c;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.product-page-btn-back:hover {
+  color: #e8601a;
+}
