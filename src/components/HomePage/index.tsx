@@ -44,11 +44,25 @@ export async function HomePage() {
 
   const { hero, products: productsSection, about, cta } = settings
 
+  const heroImg = hero.image && typeof hero.image === 'object' ? (hero.image as Media) : null
+  const heroImgUrl = heroImg?.url ? getMediaUrl(heroImg.url, heroImg.updatedAt) : null
+
   return (
     <main className={`homepage ${plusJakarta.variable}`}>
 
       {/* ─────────────── HERO ─────────────── */}
       <section className="hp-hero" data-theme="dark">
+        {heroImgUrl && (
+          <Image
+            src={heroImgUrl}
+            alt={heroImg?.alt || ''}
+            fill
+            priority
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            sizes="100vw"
+          />
+        )}
+        <div className="hp-hero-overlay" />
         <div className="hp-hero-inner">
           {hero.tag && <span className="hp-hero-tag">{hero.tag}</span>}
           <h1 className="hp-hero-title">{hero.title}</h1>

@@ -18,18 +18,27 @@
 .hp-hero {
   position: relative;
   min-height: 560px;
-  background: linear-gradient(
-      to right,
-      rgba(26, 43, 60, 0.72) 0%,
-      rgba(26, 43, 60, 0.45) 60%,
-      rgba(26, 43, 60, 0.2) 100%
-    ),
-    linear-gradient(160deg, #2c4a6e 0%, #4a7a9b 40%, #7aadcc 70%, #c8dde8 100%);
+  background: linear-gradient(160deg, #2c4a6e 0%, #4a7a9b 40%, #7aadcc 70%, #c8dde8 100%);
   display: flex;
   align-items: center;
+  overflow: hidden;
+}
+
+.hp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(26, 43, 60, 0.78) 0%,
+    rgba(26, 43, 60, 0.5) 60%,
+    rgba(26, 43, 60, 0.25) 100%
+  );
+  z-index: 1;
 }
 
 .hp-hero-inner {
+  position: relative;
+  z-index: 2;
   max-width: 1200px;
   margin: 0 auto;
   padding: 5rem 2rem;

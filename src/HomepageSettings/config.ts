@@ -57,6 +57,12 @@ export const HomepageSettings: GlobalConfig = {
           label: 'Secondary Button Link',
           defaultValue: '/contact',
         },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Background Image',
+        },
       ],
     },
     {

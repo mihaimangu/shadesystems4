@@ -1768,6 +1768,7 @@ export interface HomepageSetting {
     primaryButtonHref?: string | null;
     secondaryButtonLabel?: string | null;
     secondaryButtonHref?: string | null;
+    image?: (number | null) | Media;
   };
   products?: {
     label?: string | null;
@@ -1857,6 +1858,7 @@ export interface HomepageSettingsSelect<T extends boolean = true> {
         primaryButtonHref?: T;
         secondaryButtonLabel?: T;
         secondaryButtonHref?: T;
+        image?: T;
       };
   products?:
     | T
