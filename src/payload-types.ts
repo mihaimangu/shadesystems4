@@ -114,10 +114,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'homepage-settings': HomepageSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'homepage-settings': HomepageSettingsSelect<false> | HomepageSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1754,6 +1756,48 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage-settings".
+ */
+export interface HomepageSetting {
+  id: number;
+  hero: {
+    tag?: string | null;
+    title: string;
+    subtitle?: string | null;
+    primaryButtonLabel?: string | null;
+    primaryButtonHref?: string | null;
+    secondaryButtonLabel?: string | null;
+    secondaryButtonHref?: string | null;
+  };
+  products?: {
+    label?: string | null;
+    title?: string | null;
+    description?: string | null;
+  };
+  about?: {
+    title?: string | null;
+    body1?: string | null;
+    body2?: string | null;
+    stat1Value?: string | null;
+    stat1Label?: string | null;
+    stat2Value?: string | null;
+    stat2Label?: string | null;
+    stat3Value?: string | null;
+    stat3Label?: string | null;
+    stat4Value?: string | null;
+    stat4Label?: string | null;
+  };
+  cta?: {
+    text?: string | null;
+    highlight?: string | null;
+    buttonLabel?: string | null;
+    buttonHref?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1793,6 +1837,56 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage-settings_select".
+ */
+export interface HomepageSettingsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        tag?: T;
+        title?: T;
+        subtitle?: T;
+        primaryButtonLabel?: T;
+        primaryButtonHref?: T;
+        secondaryButtonLabel?: T;
+        secondaryButtonHref?: T;
+      };
+  products?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        description?: T;
+      };
+  about?:
+    | T
+    | {
+        title?: T;
+        body1?: T;
+        body2?: T;
+        stat1Value?: T;
+        stat1Label?: T;
+        stat2Value?: T;
+        stat2Label?: T;
+        stat3Value?: T;
+        stat3Label?: T;
+        stat4Value?: T;
+        stat4Label?: T;
+      };
+  cta?:
+    | T
+    | {
+        text?: T;
+        highlight?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
       };
   updatedAt?: T;
   createdAt?: T;

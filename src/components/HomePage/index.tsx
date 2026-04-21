@@ -4,7 +4,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
-import type { Media, Product } from '@/payload-types'
+import type { HomepageSetting, Media, Product } from '@/payload-types'
 import './homepage.css'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -23,19 +23,26 @@ const cardGradients = [
   'linear-gradient(135deg, #2a4a3a 0%, #3a7a5e 60%, #6aaa8e 100%)',
 ]
 
-async function getProducts(): Promise<Product[]> {
+async function getData() {
   const payload = await getPayload({ config: configPromise })
-  const result = await payload.find({
-    collection: 'products',
-    limit: 12,
-    sort: 'order',
-    pagination: false,
-  })
-  return result.docs
+
+  const [settings, productsResult] = await Promise.all([
+    payload.findGlobal({ slug: 'homepage-settings' }) as Promise<HomepageSetting>,
+    payload.find({
+      collection: 'products',
+      limit: 12,
+      sort: 'order',
+      pagination: false,
+    }),
+  ])
+
+  return { settings, products: productsResult.docs }
 }
 
 export async function HomePage() {
-  const products = await getProducts()
+  const { settings, products } = await getData()
+
+  const { hero, products: productsSection, about, cta } = settings
 
   return (
     <main className={`homepage ${plusJakarta.variable}`}>
@@ -43,20 +50,15 @@ export async function HomePage() {
       {/* ─────────────── HERO ─────────────── */}
       <section className="hp-hero" data-theme="dark">
         <div className="hp-hero-inner">
-          <span className="hp-hero-tag">Shade Systems</span>
-          <h1 className="hp-hero-title">
-            Quality Shade Solutions<br />for Every Space
-          </h1>
-          <p className="hp-hero-sub">
-            Pergolas, awnings, roller screens and more — designed and installed
-            by specialists with over 20 years of experience.
-          </p>
+          {hero.tag && <span className="hp-hero-tag">{hero.tag}</span>}
+          <h1 className="hp-hero-title">{hero.title}</h1>
+          {hero.subtitle && <p className="hp-hero-sub">{hero.subtitle}</p>}
           <div className="hp-hero-actions">
-            <Link href="/products" className="hp-btn hp-btn-orange">
-              View Products
+            <Link href={hero.primaryButtonHref || '/products'} className="hp-btn hp-btn-orange">
+              {hero.primaryButtonLabel || 'View Products'}
             </Link>
-            <Link href="/contact" className="hp-btn hp-btn-outline-white">
-              Get a Quote
+            <Link href={hero.secondaryButtonHref || '/contact'} className="hp-btn hp-btn-outline-white">
+              {hero.secondaryButtonLabel || 'Get a Quote'}
             </Link>
           </div>
         </div>
@@ -66,27 +68,20 @@ export async function HomePage() {
       <section className="hp-products">
         <div className="hp-products-inner">
           <div className="hp-section-header">
-            <p className="hp-section-label">Our Products</p>
-            <h2 className="hp-section-title">Complete Range of Shade Systems</h2>
-            <p className="hp-section-desc">
-              From residential terraces to large commercial projects, we have a solution
-              for every environment and budget.
-            </p>
+            <p className="hp-section-label">{productsSection?.label || 'Our Products'}</p>
+            <h2 className="hp-section-title">{productsSection?.title || 'Complete Range of Shade Systems'}</h2>
+            {productsSection?.description && <p className="hp-section-desc">{productsSection.description}</p>}
           </div>
 
           <div className="hp-products-grid">
-            {products.map((product, i) => {
+            {products.map((product: Product, i: number) => {
               const image = product.image && typeof product.image === 'object'
                 ? (product.image as Media)
                 : null
               const imgUrl = image?.url ? getMediaUrl(image.url, image.updatedAt) : null
 
               return (
-                <Link
-                  key={product.id}
-                  href={`/products/${product.slug}`}
-                  className="hp-product-card"
-                >
+                <Link key={product.id} href={`/products/${product.slug}`} className="hp-product-card">
                   <div className="hp-product-thumb">
                     {imgUrl ? (
                       <Image
@@ -123,29 +118,20 @@ export async function HomePage() {
 
           <div className="hp-about-text">
             <p className="hp-section-label">About Us</p>
-            <h2 className="hp-section-title">Over 20 Years of Expertise</h2>
+            <h2 className="hp-section-title">{about?.title || 'Over 20 Years of Expertise'}</h2>
 
-            <p className="hp-about-body">
-              We are a specialist company focused on outdoor shade systems for residential
-              and commercial clients. Our team handles everything from design and
-              manufacturing to installation and after-sales support.
-            </p>
-            <p className="hp-about-body">
-              We work with high-quality aluminium and fabric systems that are built to
-              last, combining functionality with clean, modern aesthetics.
-            </p>
+            {about?.body1 && <p className="hp-about-body">{about.body1}</p>}
+            {about?.body2 && <p className="hp-about-body">{about.body2}</p>}
 
             <div className="hp-about-stats">
               {[
-                { num: '20', suffix: '+', label: 'Years in business' },
-                { num: '5000', suffix: '+', label: 'Projects completed' },
-                { num: '12', suffix: '', label: 'Countries served' },
-                { num: '100', suffix: '%', label: 'Client satisfaction' },
+                { value: about?.stat1Value || '20+', label: about?.stat1Label || 'Years in business' },
+                { value: about?.stat2Value || '5000+', label: about?.stat2Label || 'Projects completed' },
+                { value: about?.stat3Value || '12',   label: about?.stat3Label || 'Countries served' },
+                { value: about?.stat4Value || '100%', label: about?.stat4Label || 'Client satisfaction' },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="hp-about-stat-num">
-                    {s.num}<span>{s.suffix}</span>
-                  </div>
+                  <div className="hp-about-stat-num">{s.value}</div>
                   <div className="hp-about-stat-label">{s.label}</div>
                 </div>
               ))}
@@ -162,11 +148,11 @@ export async function HomePage() {
       <section className="hp-cta">
         <div className="hp-cta-inner">
           <p className="hp-cta-text">
-            Ready to get started?{' '}
-            <span>Request a free consultation.</span>
+            {cta?.text || 'Ready to get started?'}{' '}
+            {cta?.highlight && <span>{cta.highlight}</span>}
           </p>
-          <Link href="/contact" className="hp-btn hp-btn-orange">
-            Contact Us
+          <Link href={cta?.buttonHref || '/contact'} className="hp-btn hp-btn-orange">
+            {cta?.buttonLabel || 'Contact Us'}
           </Link>
         </div>
       </section>
