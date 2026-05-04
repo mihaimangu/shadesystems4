@@ -28,16 +28,7 @@ const getProduct = cache(async (slug: string): Promise<Product | null> => {
   return result.docs[0] ?? null
 })
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const result = await payload.find({
-    collection: 'products',
-    limit: 100,
-    pagination: false,
-    select: { slug: true },
-  })
-  return result.docs.map((doc) => ({ slug: doc.slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({
   params,
