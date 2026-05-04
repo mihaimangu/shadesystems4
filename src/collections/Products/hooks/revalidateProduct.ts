@@ -1,5 +1,5 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 import type { Product } from '../../../payload-types'
 
 export const revalidateProduct: CollectionAfterChangeHook<Product> = ({
@@ -12,7 +12,6 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = ({
     payload.logger.info(`Revalidating product at path: ${path}`)
     revalidatePath(path)
     revalidatePath('/')
-    revalidateTag('products')
 
     if (previousDoc?.slug && previousDoc.slug !== doc.slug) {
       revalidatePath(`/products/${previousDoc.slug}`)
@@ -28,7 +27,6 @@ export const revalidateDelete: CollectionAfterDeleteHook<Product> = ({
   if (!context.disableRevalidate) {
     revalidatePath(`/products/${doc?.slug}`)
     revalidatePath('/')
-    revalidateTag('products')
   }
   return doc
 }

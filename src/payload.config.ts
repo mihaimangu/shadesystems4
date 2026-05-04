@@ -62,7 +62,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL,
-      family: 4,
+      max: 1,
     },
   }),
   collections: [Pages, Posts, Products, Media, Categories, Users],

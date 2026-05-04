@@ -73,7 +73,7 @@ export const Products: CollectionConfig<'products'> = {
         description: 'Lower numbers appear first on the homepage.',
       },
     },
-    slugField('name'),
+    slugField(),
   ],
   hooks: {
     afterChange: [revalidateProduct],
