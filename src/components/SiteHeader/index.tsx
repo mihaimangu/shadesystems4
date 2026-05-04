@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { MobileMenu } from './MobileMenu'
 
 const navLinks = [
   { label: 'Products', href: '/products' },
@@ -25,6 +26,8 @@ export function SiteHeader() {
             Get a Quote
           </Link>
         </nav>
+
+        <MobileMenu />
       </div>
     </header>
   )

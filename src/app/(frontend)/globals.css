@@ -293,6 +293,109 @@ html[data-theme='light'] {
   background: #cf5516;
 }
 
+/* ── Hamburger button (hidden on desktop) ── */
+.site-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 60;
+}
+
+.site-hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+
+.site-hamburger-bar.open:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-hamburger-bar.open:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.site-hamburger-bar.open:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile overlay ── */
+.site-mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+/* ── Mobile nav drawer ── */
+.site-mobile-nav {
+  position: fixed;
+  top: 68px;
+  right: 0;
+  bottom: 0;
+  width: min(280px, 85vw);
+  background: #1a2b3c;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 2rem;
+  gap: 0.25rem;
+  z-index: 50;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  border-left: 3px solid #e8601a;
+}
+
+.site-mobile-nav--open {
+  transform: translateX(0);
+}
+
+.site-mobile-nav-link {
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 0.85rem 1rem;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.site-mobile-nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.site-mobile-nav-cta {
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.85rem 1rem;
+  background: #e8601a;
+  border-radius: 4px;
+  margin-top: 1rem;
+  text-align: center;
+  transition: background 0.15s;
+}
+
+.site-mobile-nav-cta:hover {
+  background: #cf5516;
+}
+
+@media (max-width: 768px) {
+  .site-nav {
+    display: none;
+  }
+
+  .site-hamburger {
+    display: flex;
+  }
+}
+
 /* ── Product Detail Page ── */
 .product-page {
   min-height: 60vh;
