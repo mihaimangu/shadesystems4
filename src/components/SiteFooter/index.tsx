@@ -78,11 +78,11 @@ export function SiteFooter() {
             Designed to last, built to impress.
           </p>
           <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <a href="tel:+40000000000" style={{ ...linkStyle, color: 'rgba(255,255,255,0.65)' }}>
-              +40 000 000 000
+            <a href="tel:+34647101244" style={{ ...linkStyle, color: 'rgba(255,255,255,0.65)' }}>
+              +34 647 101 244
             </a>
-            <a href="mailto:contact@shadesystems.com" style={{ ...linkStyle, color: 'rgba(255,255,255,0.65)' }}>
-              contact@shadesystems.com
+            <a href="mailto:contact@shadesystems.eu" style={{ ...linkStyle, color: 'rgba(255,255,255,0.65)' }}>
+              contact@shadesystems.eu
             </a>
           </div>
         </div>
@@ -118,8 +118,9 @@ export function SiteFooter() {
               lineHeight: 1.75,
             }}
           >
-            Strada Exemplu 12<br />
-            București, România<br />
+            Calle Orfebres 10<br />
+            Mijas, Málaga 29649<br />
+            España<br />
             Mon – Fri: 08:00 – 17:00
           </p>
         </div>
