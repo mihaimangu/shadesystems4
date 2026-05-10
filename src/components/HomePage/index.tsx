@@ -68,10 +68,7 @@ export async function HomePage() {
           <h1 className="hp-hero-title">{hero.title}</h1>
           {hero.subtitle && <p className="hp-hero-sub">{hero.subtitle}</p>}
           <div className="hp-hero-actions">
-            <Link href={hero.primaryButtonHref || '/products'} className="hp-btn hp-btn-orange">
-              {hero.primaryButtonLabel || 'View Products'}
-            </Link>
-            <Link href={hero.secondaryButtonHref || '/contact'} className="hp-btn hp-btn-outline-white">
+            <Link href={hero.secondaryButtonHref || '/contact'} className="hp-btn hp-btn-orange">
               {hero.secondaryButtonLabel || 'Get a Quote'}
             </Link>
           </div>
