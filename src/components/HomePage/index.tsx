@@ -128,7 +128,17 @@ export async function HomePage() {
       {/* ─────────────── ABOUT ─────────────── */}
       <section className="hp-about">
         <div className="hp-about-inner">
-          <div className="hp-about-img" />
+          <div className="hp-about-img">
+            {about?.image && typeof about.image === 'object' && (
+              <Image
+                src={getMediaUrl(about.image as Media)}
+                alt={(about.image as Media).alt || 'About us'}
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            )}
+          </div>
 
           <div className="hp-about-text">
             <p className="hp-section-label">About Us</p>

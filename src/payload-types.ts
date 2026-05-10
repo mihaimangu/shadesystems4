@@ -1779,6 +1779,7 @@ export interface HomepageSetting {
     title?: string | null;
     body1?: string | null;
     body2?: string | null;
+    image?: (number | null) | Media;
     stat1Value?: string | null;
     stat1Label?: string | null;
     stat2Value?: string | null;
@@ -1873,6 +1874,7 @@ export interface HomepageSettingsSelect<T extends boolean = true> {
         title?: T;
         body1?: T;
         body2?: T;
+        image?: T;
         stat1Value?: T;
         stat1Label?: T;
         stat2Value?: T;

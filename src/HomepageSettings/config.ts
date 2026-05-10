@@ -117,6 +117,12 @@ export const HomepageSettings: GlobalConfig = {
             'We work with high-quality aluminium and fabric systems that are built to last, combining functionality with clean, modern aesthetics.',
         },
         {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Image',
+        },
+        {
           name: 'stat1Value',
           type: 'text',
           label: 'Stat 1 Value',
@@ -200,8 +206,13 @@ export const HomepageSettings: GlobalConfig = {
   ],
   hooks: {
     afterChange: [
-      () => {
-        revalidatePath('/')
+      ({ context }: { context: Record<string, unknown> }) => {
+        if (context?.disableRevalidate) return
+        try {
+          revalidatePath('/')
+        } catch {
+          // outside Next.js request context (e.g. scripts)
+        }
       },
     ],
   },

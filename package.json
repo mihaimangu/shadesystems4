@@ -22,6 +22,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@fal-ai/client": "^1.10.1",
     "@payloadcms/admin-bar": "3.83.0",
     "@payloadcms/db-postgres": "3.83.0",
     "@payloadcms/live-preview-react": "3.83.0",
