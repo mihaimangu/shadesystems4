@@ -66,10 +66,11 @@ async function run() {
       continue
     }
 
-    // Skip if already has image
+    // Remove existing image if present
     if (product.image) {
-      console.log(`  ⚠️  Already has image: ${slug}`)
-      continue
+      const mediaId = typeof product.image === 'object' ? product.image.id : product.image
+      await payload.delete({ collection: 'media', id: mediaId, context: { disableRevalidate: true } }).catch(() => {})
+      await payload.update({ collection: 'products', id: product.id, data: { image: null }, context: { disableRevalidate: true } })
     }
 
     console.log(`  ↓ Downloading image for: ${slug}`)

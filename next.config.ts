@@ -25,14 +25,18 @@ const nextConfig: NextConfig = {
     ],
     qualities: [100],
     remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
+      ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
         const url = new URL(item)
-
         return {
           hostname: url.hostname,
           protocol: url.protocol.replace(':', '') as 'http' | 'https',
         }
       }),
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/storage/v1/object/**',
+      },
     ],
   },
   webpack: (webpackConfig) => {
@@ -44,6 +48,7 @@ const nextConfig: NextConfig = {
 
     return webpackConfig
   },
+  output: 'standalone',
   reactStrictMode: true,
   redirects,
   turbopack: {
