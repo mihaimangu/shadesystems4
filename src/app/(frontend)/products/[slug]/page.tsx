@@ -78,11 +78,11 @@ export default async function ProductPage({
         )}
         <div className="product-page-hero-overlay" />
         <div className="product-page-hero-content">
-          <Link href="/" className="product-page-breadcrumb">
-            Home
-          </Link>
-          <span className="product-page-breadcrumb-sep"> / </span>
-          <span className="product-page-breadcrumb-cur">Products</span>
+          <div className="product-page-breadcrumb-row">
+            <Link href="/" className="product-page-breadcrumb">Home</Link>
+            <span className="product-page-breadcrumb-sep"> / </span>
+            <span className="product-page-breadcrumb-cur">Products</span>
+          </div>
           <h1 className="product-page-title">{product.name}</h1>
           <p className="product-page-sub">{product.description}</p>
         </div>

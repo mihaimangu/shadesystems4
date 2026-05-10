@@ -8,6 +8,7 @@ import {
   HeadingFeature,
   HorizontalRuleFeature,
   InlineToolbarFeature,
+  UploadFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
@@ -57,6 +58,7 @@ export const Products: CollectionConfig<'products'> = {
           FixedToolbarFeature(),
           InlineToolbarFeature(),
           HorizontalRuleFeature(),
+          UploadFeature({ collections: { media: { fields: [] } } }),
         ],
       }),
       admin: {
