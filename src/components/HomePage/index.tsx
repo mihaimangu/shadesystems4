@@ -126,9 +126,9 @@ export async function HomePage() {
       <section className="hp-about">
         <div className="hp-about-inner">
           <div className="hp-about-img">
-            {about?.image && typeof about.image === 'object' && (
+            {about?.image && typeof about.image === 'object' && (about.image as Media).url && (
               <Image
-                src={getMediaUrl(about.image as Media)}
+                src={getMediaUrl((about.image as Media).url, (about.image as Media).updatedAt)}
                 alt={(about.image as Media).alt || 'About us'}
                 fill
                 style={{ objectFit: 'cover' }}
