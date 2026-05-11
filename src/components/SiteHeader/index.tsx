@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { MobileMenu } from './MobileMenu'
 
 const navLinks = [
-  { label: 'Products', href: '/products' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
   { label: 'Contact', href: '/contact' },
