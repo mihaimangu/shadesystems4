@@ -3,7 +3,6 @@ import { MobileMenu } from './MobileMenu'
 
 const navLinks = [
   { label: 'About', href: '/about' },
-  { label: 'Projects', href: '/projects' },
   { label: 'Contact', href: '/contact' },
 ]
 

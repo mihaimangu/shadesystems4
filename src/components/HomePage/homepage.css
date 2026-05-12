@@ -161,12 +161,13 @@
 /* ═══════════════════════ PRODUCTS ═══════════════════════ */
 .hp-products {
   background: var(--grey-bg);
-  padding: 5rem 2rem;
+  padding: 5rem 0;
 }
 
 .hp-products-inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .hp-products-grid {
@@ -253,12 +254,13 @@
 /* ═══════════════════════ ABOUT ═══════════════════════ */
 .hp-about {
   background: var(--white);
-  padding: 4rem 2rem;
+  padding: 4rem 0;
 }
 
 .hp-about-inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3.5rem;
@@ -347,12 +349,13 @@
 /* ═══════════════════════ CTA STRIP ═══════════════════════ */
 .hp-cta {
   background: var(--navy);
-  padding: 4rem 2rem;
+  padding: 4rem 0;
 }
 
 .hp-cta-inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

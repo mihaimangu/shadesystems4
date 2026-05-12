@@ -75,13 +75,13 @@
 
   @variant xl {
     .container {
-      max-width: var(--breakpoint-xl);
+      max-width: 1200px;
     }
   }
 
   @variant 2xl {
     .container {
-      max-width: var(--breakpoint-2xl);
+      max-width: 1200px;
     }
   }
 }
@@ -214,14 +214,6 @@
   }
 }
 
-html {
-  opacity: 0;
-}
-
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: initial;
-}
 
 /* ── Site Header ── */
 .site-header {
